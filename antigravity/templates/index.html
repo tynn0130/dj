@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="converter-box">
+    <h1>{% trans "Log to Regex Converter" %}</h1>
+    <p>{% trans "Convert your error logs into regular expressions." %}</p>
+
+    {% if result %}
+    <div class="alert alert-success" role="alert"
+        style="padding: 1rem; background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; border-radius: 4px; margin-bottom: 1rem;">
+        {{ result }}
+    </div>
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="{{ form.log_text.id_for_label }}">{{ form.log_text.label }}</label>
+            {{ form.log_text }}
+        </div>
+
+        <div class="divider">
+            <span>{% trans "OR" %}</span>
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.log_file.id_for_label }}">{{ form.log_file.label }}</label>
+            {{ form.log_file }}
+        </div>
+
+        <button type="submit" class="btn btn-primary">{% trans "Convert" %}</button>
+    </form>
+</div>
+{% endblock %}
